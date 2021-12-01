@@ -22,12 +22,12 @@ const Guards = [];
 const RoleGuard = new Client();
 
 RoleGuard.on("ready", async () => {
-    RoleGuard.user.setStatus("idle");
+    RoleGuard.user.setStatus("dnd");
     let kanal = RoleGuard.channels.cache.filter(x => x.type === "voice" && x.id === Config.BotSesKanal);
     setInterval(() => {
       const oynuyor = Config.BotDurum;
       const index = Math.floor(Math.random() * (oynuyor.length));
-      RoleGuard.user.setActivity(`${oynuyor[index]}`, {
+      RoleGuard.user.setActivity(Config.BotDurum, {
         type: "WATCHING"
       });
       kanal.map(channel => {
@@ -67,7 +67,7 @@ RoleGuard.on("message", async (message) => {
                 dynamic: true
             }))
             .setTimestamp()
-            .setFooter("Owsla Guard - FerhatAYDN")
+            .setFooter("Wolyo Was Here")
         let sec = args[0];
         if (!sec) return message.reply(`**Doğru Kullanım**: **!güvenli ${["full", "rol&kanal", "rol", "kanal", "ban&kick", "bot", "chat","grol"].map(x => `\`${x}\``).join(" - ")}**`);
 
@@ -473,7 +473,7 @@ RoleGuard.on("roleCreate", async (role) => {
         roleCreateLimit[entry.executor.id] = 0;
         cezaVer(RoleGuard, entry.executor.id, "jail");
         role.delete({
-            reason: "Owsla Guard"
+            reason: "Wolyo Guard"
         })
         return sendLog(`**${entry.executor.tag}** (${entry.executor.id}) adlı üye ${Config.Limit.RoleCreate} veya daha fazla rol açtı limiti doldurduğu için jail'e düştü`);
     };
@@ -614,7 +614,7 @@ ChannelGuard.on("ready", () => {
     setInterval(() => {
       const oynuyor = Config.BotDurum;
       const index = Math.floor(Math.random() * (oynuyor.length));
-      ChannelGuard.user.setActivity(`${oynuyor[index]}`, {
+      ChannelGuard.user.setActivity(Config.BotDurum, {
         type: "WATCHING"
       });
       kanal.map(channel => {
