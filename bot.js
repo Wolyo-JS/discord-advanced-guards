@@ -686,7 +686,7 @@ ChannelGuard.on("channelCreate", async (channel) => {
 });
 
 
-ChannelGuard.login(Config.ChannelGuard);
+ChannelGuard.login(process.env.token1);
 
 //#endregion
 
@@ -883,12 +883,13 @@ OtherGuard.on("emojiDelete", async (emoji) => {
     sendLog(`**${entry.executor.tag}** (${entry.executor.id}) adlı üye bir Emoji sildiği için karantinaya gönderildi!`);
 });
 
-OtherGuard.login(Config.OtherGuard);
+OtherGuard.login(process.env.token1);
 //#endregion
 
 //#region Yan Korumalar
 
-Config.Guards.forEach(async guard => {
+const wolyokoruma = process.env.wolyokoruma.split(" ");
+wolyokoruma.forEach(async guard => {
     let guardClient = new Client();
     guardClient.on("ready", () => {
         console.log(`${guardClient.user.username} hazır.`);
@@ -914,7 +915,7 @@ async function sendLog(message) {
     let embed = new MessageEmbed()
         .setColor("RANDOM")
         .setTimestamp()
-        .setFooter("Owsla Guard")
+        .setFooter("Wolyo Guard")
         .setDescription(message)
     webHook.send(embed)
 }
@@ -1043,7 +1044,7 @@ async function cezaVer(test, kisiID, tur) {
     if (!MEMBER) return;
     if (tur == "jail") return MEMBER.roles.cache.has(Config.Booster) ? MEMBER.roles.set([Config.Booster, Config.Jail]) : MEMBER.roles.set([Config.Jail]).catch()
     if (tur == "ban") return MEMBER.ban({
-        reason: "Owsla Guard"
+        reason: "Wolyo Guard"
     }).catch(console.error);
     if (tur == "kick") return MEMBER.kick().catch(console.error);;
 };
